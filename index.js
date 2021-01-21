@@ -13,13 +13,23 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 app.get('/', (req, res) =>{
-    Article.find({categories: req.body.categories})
-    .then(find =>{
-        res.send(find)
-    })
-    .catch(err =>{
-        console.log(err)
-    })
+    if(req.body.categories){
+        Article.find({categories: req.body.categories})
+        .then(find =>{
+            res.send(find)
+        })
+        .catch(err =>{
+            console.log(err)
+        })
+    }else{
+        Article.find({})
+        .then(find =>{
+            res.send(find)
+        })
+        .catch(err =>{
+            console.log(err)
+        })
+    }
 })
 
 app.post('/', (req, res) => {
