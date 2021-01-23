@@ -81,8 +81,7 @@ mongoose.connection.on('connected', async () => {
     })
     console.log('connected')
     /* await generalArticles()
-    console.log('Success') */
-    /* await politicsArticles();
+    await politicsArticles();
     await sportsArticles();
     await entertainmentArticles();
     await businessArticles();
@@ -152,7 +151,7 @@ const politicsArticles = async () =>{
                 }
                 await Article.find({categories: 'politics'})
                 .then(async curr => {
-                    if(Object.keys(curr).length === 0){
+                    if(Object.keys(curr).length < 20){
                         let arr = new Article(ar);
                         await arr.save()
                         .then(console.log('added politics article'))
@@ -172,19 +171,19 @@ const politicsArticles = async () =>{
     }
 }
 const entertainmentArticles = async () => {
-    await axios.get(`https://newsapi.org/v2/top-headlines?apiKey=${NAtoken}&country=us&category=entertainment&pageSize=21`)
+    await axios.get(`https://newsapi.org/v2/top-headlines?apiKey=${NAtoken}&country=us&category=entertainment`)
     .then(async (res) =>{
         const articles = res.data.articles;
         await articles.map(async (data) => {
             let i = 0;
                 const ar = {
                     title: data.title,
-                    description: ((data.description === '' || data.description === null) ? data.snippet : data.description),
-                    source: data.source,
+                    description: data.description,
+                    source: data.source.name,
                     categories: 'entertainment',
                     url: data.url,
-                    img: data.image_url,
-                    date: data.published_at
+                    img: data.urlToImage,
+                    date: data.publishedAt
                 }
                 await Article.find({categories: 'entertainment'})
                 .then(async curr => {
@@ -208,19 +207,19 @@ const entertainmentArticles = async () => {
     })
 }
 const businessArticles = async () => {
-    await axios.get(`https://newsapi.org/v2/top-headlines?apiKey=${NAtoken}&country=us&category=business&pageSize=21`)
+    await axios.get(`https://newsapi.org/v2/top-headlines?apiKey=${NAtoken}&country=us&category=business`)
     .then(async (res) =>{
         const articles = res.data.articles;
         await articles.map(async (data) => {
             let i = 0;
                 const ar = {
                     title: data.title,
-                    description: ((data.description === '' || data.description === null) ? data.snippet : data.description),
-                    source: data.source,
+                    description: data.description,
+                    source: data.source.name,
                     categories: 'business',
                     url: data.url,
-                    img: data.image_url,
-                    date: data.published_at
+                    img: data.urlToImage,
+                    date: data.publishedAt
                 }
                 await Article.find({categories: 'business'})
                 .then(async curr => {
@@ -244,19 +243,19 @@ const businessArticles = async () => {
     })
 }
 const sportsArticles = async () => {
-    await axios.get(`https://newsapi.org/v2/top-headlines?apiKey=${NAtoken}&country=us&category=sports&pageSize=21`)
+    await axios.get(`https://newsapi.org/v2/top-headlines?apiKey=${NAtoken}&country=us&category=sports`)
     .then(async (res) =>{
         const articles = res.data.articles;
         await articles.map(async (data) => {
             let i = 0;
                 const ar = {
                     title: data.title,
-                    description: ((data.description === '' || data.description === null) ? data.snippet : data.description),
-                    source: data.source,
+                    description: data.description,
+                    source: data.source.name,
                     categories: 'sports',
                     url: data.url,
-                    img: data.image_url,
-                    date: data.published_at
+                    img: data.urlToImage,
+                    date: data.publishedAt
                 }
                 await Article.find({categories: 'sports'})
                 .then(async curr => {
@@ -280,19 +279,19 @@ const sportsArticles = async () => {
     })
 }
 const technologyArticles = async () => {
-    await axios.get(`https://newsapi.org/v2/top-headlines?apiKey=${NAtoken}&country=us&category=technology&pageSize=21`)
+    await axios.get(`https://newsapi.org/v2/top-headlines?apiKey=${NAtoken}&country=us&category=technology`)
     .then(async (res) =>{
         const articles = res.data.articles;
         await articles.map(async (data) => {
             let i = 0;
                 const ar = {
                     title: data.title,
-                    description: ((data.description === '' || data.description === null) ? data.snippet : data.description),
-                    source: data.source,
+                    description: data.description,
+                    source: data.source.name,
                     categories: 'technology',
                     url: data.url,
-                    img: data.image_url,
-                    date: data.published_at
+                    img: data.urlToImage,
+                    date: data.publishedAt
                 }
                 await Article.find({categories: 'technology'})
                 .then(async curr => {
