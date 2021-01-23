@@ -12,6 +12,13 @@ const TNA_token = process.env.TNA_TOKEN;
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PATCH, DELETE, OPTIONS');
+    next();
+});
+
 app.get('/', (req, res) =>{
     if(req.body.categories){
         Article.find({categories: req.body.categories})
@@ -316,4 +323,3 @@ const clearDB = async (category) =>{
             console.log(err)
         })
 }
-
