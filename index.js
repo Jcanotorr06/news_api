@@ -99,7 +99,7 @@ const run = async () => {
 run().catch(err => console.log(err));
 
 const generalArticles = async () =>{
-    await axios.get(`https://api.thenewsapi.com/v1/news/top?api_token=${TNA_token}&language=en&limit=1&category=general`)
+    await axios.get(`https://api.thenewsapi.com/v1/news/top?api_token=${TNA_token}&language=en&limit=1&category=general&exclude_domains=ndtv.com`)
         .then(async (res) =>{
             const articles = res.data.data
             await articles.map(async (data) => {
@@ -135,7 +135,7 @@ const generalArticles = async () =>{
 }
 const politicsArticles = async () =>{
     for (let i = 1; i < 5; i++) {
-        await axios.get(`https://api.thenewsapi.com/v1/news/top?api_token=${TNA_token}&language=en&categories=politics&page=${i}`)
+        await axios.get(`https://api.thenewsapi.com/v1/news/top?api_token=${TNA_token}&language=en&categories=politics&page=${i}&exclude_domains=ndtv.com,scroll.in`)
         .then(async (res) =>{
             const articles = res.data.data
             await articles.map(async (data) => {
